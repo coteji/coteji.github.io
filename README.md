@@ -12,6 +12,7 @@ Coteji is the plug-in system. There are (will be) different implementations for 
 Let's say you have the following TestNG test:
 ```java
 @Test(dataProvider = "deleteReminderData")
+@UserStories({"COT-110", "COT-115"}) // example of your annotation
 public void deleteReminder(Reminder reminder) {
     NavigationSteps.openRemindersApp();
     ReminderSteps.addReminder(reminder);
@@ -20,31 +21,29 @@ public void deleteReminder(Reminder reminder) {
     ReminderSteps.checkReminderIsAbsent(reminder);
 }
 ```
-And the following Coteji configuration script:
+And the following Coteji configuration script (`config.coteji.kts`):
 ```kotlin
 @file:DependsOn("io.github.coteji:coteji-source-java:1.0")
 @file:DependsOn("io.github.coteji:coteji-target-jira:1.0")
-import io.github.coteji.sources.JavaCodeSource
-import io.github.coteji.targets.JiraTarget
+import io.github.coteji.sources.*
+import io.github.coteji.targets.*
 
 val source = JavaCodeSource(
         testsDir = "path/to/dir",
-        isTest = method { withAnnotation("Test") }
-        lineTransform = { line -> 
-            if (a.contains(".")) {
-                return a.split(".")[1]
-                .split(Pattern.compile("(?=\\p{Lu})"))
-                .joinToString(separator = " ")
-                .capitalize()
-                .replace("(", " [ ")
-                .replace(");", " ]")
-            }
-            return line
-        }
+        isTest = method { withAnnotation("Test") },
+        getId = methodAnnotation("TestCase"),
+        lineTransform = separateByUpperCaseLetters
 )
 
-val target = JiraTarget()
+val target = JiraTarget(
+        url = "https://your.jira.com",
+        user = "service-user",
+        password = "your_password",
+        project = "COT",
+        issueType = "Task"
+)
+
 setSource(source)
-setTarget(JiraTarget())
+setTarget(target)
 
 ```
