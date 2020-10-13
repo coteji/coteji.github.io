@@ -30,9 +30,15 @@ import io.github.coteji.targets.*
 
 val source = JavaCodeSource(
         testsDir = "path/to/dir",
-        isTest = method { withAnnotation("Test") },
-        getId = methodAnnotation("TestCase"),
-        lineTransform = separateByUpperCaseLetters
+        isTest = { method -> method.hasAnnotation("Test") },
+        getId = { method -> method.getAnnotationValue("TestCase") },
+        testName = { method -> "[TEST] " + method.name.separateByUpperCaseLetters() },
+        lineTransform = { line -> line.substringAfter(".")
+                .separateByUpperCaseLetters()
+                .replace("();", "")
+                .replace("(", " [ ")
+                .replace(");", " ]") },
+        
 )
 
 val target = JiraTarget(
@@ -47,3 +53,7 @@ setSource(source)
 setTarget(target)
 
 ```
+Then after running the Coteji, the following JIRA task is going to be created:
+![](img/jira_task.png)
+
+
