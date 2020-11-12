@@ -19,7 +19,7 @@ There are couple options to run the syncronization:
 Let's say you have the following TestNG test:
 ```java
 @Test(dataProvider = "deleteReminderData")
-@UserStories({"COT-110", "COT-115"}) // example of your annotation
+@UserStories({"COT-2"}) // example of your annotation
 public void deleteReminder(Reminder reminder) {
     NavigationSteps.openRemindersApp();
     ReminderSteps.addReminder(reminder);
