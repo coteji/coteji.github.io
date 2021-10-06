@@ -1,4 +1,4 @@
-# coteji
+# Coteji
 
 ### Tool for tests migration
 
