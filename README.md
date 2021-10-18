@@ -30,35 +30,30 @@ public void deleteReminder(Reminder reminder) {
 ```
 And the following Coteji configuration script (`config.coteji.kts`):
 ```kotlin
-@file:DependsOn("io.github.coteji:coteji-source-java:1.0")
-@file:DependsOn("io.github.coteji:coteji-target-jira:1.0")
+@file:DependsOn("io.github.coteji:coteji-source-java:0.2.0")
+@file:DependsOn("io.github.coteji:coteji-target-jira:0.2.0")
 import io.github.coteji.sources.*
 import io.github.coteji.targets.*
+import io.github.coteji.extensions.*
 
-val source = JavaCodeSource(
-        testsDir = "path/to/dir",
-        isTest = { method -> method.hasAnnotation("Test") },
-        getId = { method -> method.getAnnotationValue("TestCase") },
-        testName = { method -> "[TEST] " + method.name.separateByUpperCaseLetters() },
-        lineTransform = { line -> line.substringAfter(".")
-                .separateByUpperCaseLetters()
-                .replace("();", "")
-                .replace("(", " [ ")
-                .replace(");", " ]") },
-        
+source = JavaCodeSource(
+    testsDir = "D:\\Repos\\barvin\\coteji-source-java\\src\\test\\resources\\org\\example\\tests",
+    getTestName = { "[TEST] " + this.nameAsString.separateByUpperCaseLetters() },
+    lineTransform = {
+        this.substringAfter(".")
+            .separateByUpperCaseLetters()
+            .replace("();", "")
+            .replace("(", " [ ")
+            .replace(");", " ]")
+    }
 )
 
-val target = JiraTarget(
-        url = "https://your.jira.com",
-        user = "service-user",
-        password = "your_password",
-        project = "COT",
-        issueType = "Task"
+target = JiraTarget(
+    baseUrl = "https://coteji.atlassian.net",
+    userName = "your@email.com",
+    project = "COT",
+    testIssueType = "Test Case"
 )
-
-setSource(source)
-setTarget(target)
-
 ```
 Then after running the Coteji, the following Jira task is going to be created:
 ![](img/jira_task.png)
