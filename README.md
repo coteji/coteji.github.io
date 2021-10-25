@@ -37,7 +37,7 @@ import io.github.coteji.targets.*
 import io.github.coteji.extensions.*
 
 source = JavaCodeSource(
-    testsDir = "D:\\Repos\\barvin\\coteji-source-java\\src\\test\\resources\\org\\example\\tests",
+    testsDir = "src/test/resources/org/example/tests",
     getTestName = { "[TEST] " + this.nameAsString.separateByUpperCaseLetters() },
     lineTransform = {
         this.substringAfter(".")
