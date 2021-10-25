@@ -4,6 +4,8 @@
 
 Coteji is the tool that allows you to keep your test cases as a code and syncronize them with your Test Management System (Jira, TestRail, etc.). So, for example, instead of creating and maintaining the same test both in the Java code and in Jira, you just maintain it in the code and run Cotegi from time to time to have it up to date in Jira.
 
+![](img/coteji_demo.gif)
+
 ## How it works
 Coteji is the plug-in system. There are (will be) different implementations for tests sources (Java code, Python code, BDD files, etc.) and targets (Jira, TestRail, etc.). You should be able to use any combination of the source and the target. Configuration is done using a Kotlin script file.
 
