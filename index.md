@@ -2,7 +2,7 @@
 
 ### Tool for tests migration
 
-Coteji is the tool that allows you to keep your test cases as a code and syncronize them with your Test Management System (Jira, TestRail, etc.). So, for example, instead of creating and maintaining the same test both in the Java code and in Jira, you just maintain it in the code and run Cotegi from time to time to have it up to date in Jira.
+Coteji is the tool that allows you to keep your test cases as a code and synchronize them with your Test Management System (Jira, TestRail, etc.). So, for example, instead of creating and maintaining the same test both in the Java code and in Jira, you just maintain it in the code and run Cotegi from time to time to have it up to date in Jira.
 
 ![](img/coteji_demo.gif)
 
@@ -13,7 +13,7 @@ Coteji is the plug-in system. There are (will be) different implementations for 
 
 So the target identifies which attributes you could provide and in the configuration script you write a function how to get this attribute from the test in the source. For example, your tests source is Java code and the target is Jira. To populate Jira ticket labels, you should provide the function that takes Java method as an input parameter, `Map<String, Any>` as an output, and within this function you put the list of lables to this map under the `labels` key.
 
-There are couple options to run the syncronization:
+There are couple options to run the synchronization:
 - Command line tool
 - Gradle/Maven plugin  
 
