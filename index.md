@@ -1,4 +1,4 @@
-# Coteji
+# [Coteji](https://github.com/coteji)
 
 ### Tool for tests migration
 
